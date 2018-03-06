@@ -34,6 +34,7 @@ import edu.eci.cosw.examples.productorders.services.ApplicationServices;
 import edu.eci.cosw.examples.productorders.services.ServicesException;
 import edu.eci.cosw.samples.model.Pedido;
 import edu.eci.cosw.samples.model.Vehiculo;
+import java.io.IOException;
 import java.util.Iterator;
 import javax.sql.rowset.serial.SerialBlob;
 import org.springframework.util.StreamUtils;
@@ -83,17 +84,20 @@ public class DispatchController {
 
     }
     
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public ResponseEntity uploadFile(MultipartHttpServletRequest request, @RequestParam(name = "idpedido") int idpedido, @RequestParam(name = "idvehiculo") String idVehiculo) {
+   @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public ResponseEntity uploadFile(MultipartHttpServletRequest request, @RequestParam(name = "idpedido") int idpedido, @RequestParam(name = "idvehiculo") String idvehiculo){
 
         try {
-            
-        } catch (Exception e) {
+            services.addNewDispatch(request,idpedido,idvehiculo);
+        } catch (ServicesException | IOException | SQLException e) {
             return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
+
+    
+    
 
     
 }

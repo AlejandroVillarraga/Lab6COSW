@@ -55,8 +55,8 @@ public class DetallePedido implements java.io.Serializable {
    
         
 	@ManyToOne    
-	@JoinColumn(name = "PRODUCTOS_idproducto", nullable = false, insertable = false, updatable = false)
         @Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "PRODUCTOS_idproducto", nullable = false, insertable = false, updatable = false)
 	public Producto getProducto() {
 		return this.almProductos;
 	}

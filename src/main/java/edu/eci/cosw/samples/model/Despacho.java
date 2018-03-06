@@ -69,9 +69,8 @@ public class Despacho implements java.io.Serializable {
 		this.almPedidos = almPedidos;
 	}
 
-	@ManyToOne     
+	@ManyToOne   (fetch = FetchType.EAGER)    
 	@JoinColumn(name = "VEHICULOS_placa", nullable = false)
-        @Fetch(FetchMode.JOIN)
 	public Vehiculo getVehiculo() {
 		return this.almVehiculos;
 	}
@@ -80,8 +79,8 @@ public class Despacho implements java.io.Serializable {
 		this.almVehiculos = almVehiculos;
 	}
         
+        @Column(name = "qrcode")
         @JsonIgnore
-	@Column(name = "qrcode")
 	public Blob getQrcode() {
 		return this.qrcode;
 	}

@@ -27,6 +27,7 @@ import edu.eci.cosw.samples.model.Despacho;
 import edu.eci.cosw.samples.model.Pedido;
 import edu.eci.cosw.samples.model.Producto;
 import edu.eci.cosw.samples.model.Vehiculo;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  *
@@ -99,12 +101,24 @@ public class ApplicationServicesImpl implements ApplicationServices{
     }
 
     @Override
-    public void addNewDispatch(Despacho dispatch) throws ServicesException {
-     
-            
+    public void addNewDispatch(MultipartHttpServletRequest request, int idpedido, String idvehiculo) throws ServicesException, IOException, SQLException {
+        Iterator<String> itr = request.getFileNames();
+
+        while (itr.hasNext()) {
+            String uploadedFile = itr.next();
+            MultipartFile file = request.getFile(uploadedFile);
+
+            Pedido p = ordrepo.findOne(idpedido);
+            Vehiculo v = vehirepo.findOne(idvehiculo);
+
+            Despacho d = new Despacho(p, v);
+
+            d.setQrcode(new SerialBlob(StreamUtils.copyToByteArray(file.getInputStream())));
+
+            disprepo.save(d);
+        }
     }
-    
-    
-    
+
+
     
 }

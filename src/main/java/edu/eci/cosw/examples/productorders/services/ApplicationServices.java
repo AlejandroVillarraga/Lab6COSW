@@ -21,9 +21,11 @@ import edu.eci.cosw.samples.model.Despacho;
 import edu.eci.cosw.samples.model.Pedido;
 import edu.eci.cosw.samples.model.Producto;
 import edu.eci.cosw.samples.model.Vehiculo;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 /**
  *
@@ -45,6 +47,6 @@ public interface ApplicationServices {
     
     public List<Cliente> getAllClientsByProductPrice(long price) throws ServicesException;
     
-    public void addNewDispatch(Despacho dispatch)throws ServicesException;
+    public void addNewDispatch(MultipartHttpServletRequest request, int idpedido, String idvehiculo)throws ServicesException, IOException, SQLException;
     
 }
