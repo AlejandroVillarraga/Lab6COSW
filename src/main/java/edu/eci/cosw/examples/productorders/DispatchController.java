@@ -58,6 +58,7 @@ public class DispatchController {
     @ResponseBody
     public ResponseEntity<Despacho> getDespacho(@PathVariable("id") int id) {        
         try {
+            
             return ResponseEntity.ok().body(services.dispatchByID(id));
         } catch (ServicesException ex) {
             Logger.getLogger(DispatchController.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,8 +69,9 @@ public class DispatchController {
     
     @RequestMapping(value = "/{id}/qrcode", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<InputStreamResource> getQRCode(@PathVariable Integer id) {
+    public ResponseEntity<InputStreamResource> getQRCode(@PathVariable("id") Integer id) {
         try {
+            System.out.println(id+" HOLAAAA");
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType("image/png"))
                     .body(new InputStreamResource(services.imageQRdispatchByID(id)));

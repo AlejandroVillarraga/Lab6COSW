@@ -109,6 +109,7 @@ public class ApplicationServicesImpl implements ApplicationServices{
             MultipartFile file = request.getFile(uploadedFile);
 
             Pedido p = ordrepo.findOne(idpedido);
+            System.out.println(p+" HOLAAAAAAAAAAAAAAAAAAAAa");
             Vehiculo v = vehirepo.findOne(idvehiculo);
 
             Despacho d = new Despacho(p, v);
